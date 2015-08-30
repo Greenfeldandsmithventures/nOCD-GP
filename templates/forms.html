@@ -1,0 +1,145 @@
+{% macro loginForm(email, password, form)%}
+
+<style>
+	.form-control {
+		border-color:black; 
+		border-width:2px; 
+	}
+
+	.label {
+		color:white;
+		font-size: 20px;
+	}
+
+	.nOCD-label{
+		color: white;
+		font-size:60px;
+	}
+	.button {
+		background-color: #EBEBEB;
+	}
+
+</style>
+
+<div class="container" style="border-radius: 10px; min-height:420px; max-width:350px; border: groove; border-width:5px; border-color:#4BB2CC; background-color:#3fa9f5" align="center">
+	<p class="nOCD-label"><strong>nODC</strong></p>
+	<form role="form" action="/login" method="post">
+	   	{{ form.csrf_token }}
+	    {% if form.errors %}
+	    	<div class="alert alert-danger">
+		    	<ul class='errors'>
+		    		{% for error in form.errors %}
+    					<li>{{ error }}</li>
+    				{% endfor %}
+    			</ul>
+    		</div>
+  		{% endif %}
+
+	    <div class="form-group" style="max-width:300px;">
+			{{email.label(class_="label")}}
+			{{email(class_="form-control")}}
+    	</div>
+    	<div class="form-group" style="max-width:300px">
+ 			{{password.label(class_="label")}}
+ 			{{password(class_="form-control")}}
+    	</div>    
+    	<button type="submit" class="btn button"><strong>Submit</strong></button>
+  	</form>
+</div>
+{% endmacro %}
+
+
+{% macro therapistRegistrationForm(form, error) %}
+<style>
+
+	.label {
+		color: #353a43;
+		font-style: Calibri;
+		font-size: 15px;
+	}
+
+	.form-control {
+		width: 365px;
+	}
+	.button {
+		background-color: #1db5cc;
+	}
+
+</style>
+
+
+	<form role="form" action="/therapistRegistration" method="post" align="left" style="width:365px;">
+		<center>
+			<h2 style="color:#1db5cc">Specialist Registration</h2>
+		</center>
+	   	{{ form.csrf_token }}
+	   	{% if error is defined %}
+	   		<div class="alert alert-warning">
+	   			<h3>{{ error }}</h3>
+	   		</div>
+	   	{% else %}
+			{% if form.errors %}
+			    <div class="alert alert-danger">
+			    	<h3><strong>Please Fix Errors In</strong></h3>
+			    	<ul class='errors'>
+			    		{% for error in form.errors %}
+    						<li>{{ error }}</li>
+    					{% endfor %}
+    				</ul>
+    			</div>    		
+  			{% endif %}
+  		{% endif %}
+	    <div class="form-group"  align="left">
+			{{form.name.label(class_="label")}}
+			{{form.name(class_="form-control")}}
+    	</div>
+	    <div class="form-group"  align="left">
+			{{form.email.label(class_="label")}}
+			{{form.email(class_="form-control")}}
+    	</div>
+    	<div class="form-group"  align="left">
+ 			{{form.password.label(class_="label")}}
+ 			{{form.password(class_="form-control")}}
+    	</div>
+    	<div class="form-group"  align="left">
+ 			{{form.confirmPassword.label(class_="label")}}
+ 			{{form.confirmPassword(class_="form-control")}}
+    	</div>    
+    	<h3>Information About Your Practice</h3>
+    	<div class="form-group"  align="left">
+ 			{{form.nameOfPractice.label(class_="label")}}
+ 			{{form.nameOfPractice(class_="form-control")}}
+    	</div>    
+    	<style type="text/css">
+    		ul {
+    			list-style-type: none;
+    		}
+    	</style>
+    	<div class="form-group"  align="left">
+ 			{{form.treatmentMethods.label(class_="label")}}
+ 			{{form.treatmentMethods()}}
+    	</div>    
+    	<div class="form-group"  align="left">
+ 			{{form.address.label(class_="label")}}
+ 			{{form.address(class_="form-control")}}
+    	</div>    
+    	<div class="form-group"  align="left">
+ 			{{form.city.label(class_="label")}}
+ 			{{form.city(class_="form-control")}}
+    	</div>        	
+    	<div class="form-group"  align="left">
+ 			{{form.state.label(class_="label")}}
+ 			{{form.state(class_="form-control")}}
+    	</div>    
+    	<div class="form-group"  align="left">
+ 			{{form.country.label(class_="label")}}
+ 			{{form.country(class_="form-control")}}
+    	</div>    
+    	<button type="submit" class="btn button"><strong>Register</strong></button>
+  	</form>
+
+
+
+{% endmacro %}
+
+

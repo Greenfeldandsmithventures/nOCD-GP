@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html><head>
+<title>nOCD</title>
+
+    <!--Linking Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        //Handle Sorting
+        $(function() {
+            $('.sorter').on('click', function($this) {
+                console.log(this.value);
+                if ($(this).hasClass("nameAscend")) {
+                    //highlight correct sort buttons
+                    $('.nameAscend').addClass('selected');
+                    $('.episodeAscend').removeClass('selected');
+                    $('.appointmentAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.nameColumn').addClass('activo');
+                    $('.episodeColumn').removeClass('activo');
+                    $('.appointmentColumn').removeClass('activo');
+                    //Reveal Correct table
+                    $("#appointmentTable").hide();
+                    $('#episodeTable').hide();
+                    $('#nameTable').show();                    
+                    console.log('naming');
+                }
+                else if ($(this).hasClass("appointmentAscend")) {
+                    //highlight buttons
+                    $('.appointmentAscend').addClass('selected');
+                    $('.episodeAscend').removeClass('selected');
+                    $('.nameAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.appointmentColumn').addClass('activo');
+                    $('.episodeColumn').removeClass('activo');
+                    $('.nameColumn').removeClass('activo');
+                    //reveal correct table 
+                    $("#nameTable").hide();
+                    $('#episodeTable').hide();
+                    $('#appointmentTable').show();                 
+                    console.log('apps');
+                }
+                else {
+                    //highlight buttons
+                    $('.episodeAscend').addClass('selected');
+                    $('.nameAscend').removeClass('selected');
+                    $('.appointmentAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.episodeColumn').addClass('activo');
+                    $('.nameColumn').removeClass('activo');
+                    $('.appointmentColumn').removeClass('activo');
+                    //Reveal correct Table
+                    $("#appointmentTable").hide();
+                    $('#nameTable').hide();
+                    $('#episodeTable').show();
+                    console.log('eps');
+                }
+            })
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+      <!-- Navigation Bar Row  -->
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="navbar navbar-fixed-top" style="border-bottom: 2px solid gray; background:rgba(255,255,255,0.92); color: #1db5cc;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand brand" href="/"><span><strong>n</strong></span>OCD</a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right nav-pills navpills-blue">
+                            <li><a href="/myPatients" class="navpill-blue">My Patients
+                            </a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#1db5cc">Connect To Patients
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/invitePatients">Invite Patients to nOCD</a></li>
+                                    <li><a href="/findNewPatients">Find New Patients</a></li>
+                                    <li><a href="viewMyPatients">View My Patients</a></li>
+                                </ul>
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row row-full row-body" style="top:100px;">
+      <div class="row " >
+        <div class="col-xs-2">
+
+        </div>
+        <div class="col-xs-8" align="center">
+            <style type="text/css">
+                td {
+                    padding-top: 15px;
+                    height:40px; border-bottom: 1px solid black;  font-size:30px;
+
+                }
+                .black {
+                    color: #353a43;
+                }
+                .blue {
+                    color: #1db5cc;
+                }
+                .circular {
+                     border: 1px solid #1db5cc; 
+                     border-radius: 10% 10% 10% 10%;
+                     background-color: white;
+                }
+                .selected {
+                    background-color: #e6e6e6;
+                }
+                .activo {
+                    color: #353a43;
+                }
+
+            </style>
+
+                <!-- Sorted by Appointments Table -->
+                <table hidden class="table-hover" id="appointmentTable" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                    </thead>
+
+                    {%for patientRow in patientRowsAppointments%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+
+                <!-- Sorted by Names A-z-->
+                <table class="table-hover " id="nameTable" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name <button class="selected btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                    </thead>
+
+                    {%for patientRow in patientRowsName%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+
+                <!-- Sorted by Episodes asecnding -->
+                <table hidden class="table-hover " id="episodeTable"  style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                    </thead>
+
+                    {%for patientRow in patientRowsEpisodes%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+        </div>
+        <div class="col-xs-2">
+
+        </div>
+      </div>
+
+    </div>
+
+ 
+
+
+    <!--Sample Patient line  -->
+    <div class="row " style="top:100px;">
+      <div class="row " >
+        <div class="col-xs-2">
+
+        </div>
+        <div class="col-xs-8" align="center">
+            <style type="text/css">
+                td {
+                    padding-top: 15px;
+
+                }
+                .black {
+                    color: #353a43;
+                }
+                .blue {
+                    color: #1db5cc;
+                }
+                .circular {
+                     border: 1px solid #1db5cc; 
+                     border-radius: 10% 10% 10% 10%;
+                     background-color: white;
+                }
+                .btn-default{
+                    border-style: none;
+                }
+
+            </style>
+                   <table class="table-hover " style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                        <thead style="color:#353a43; font-size:30px">
+                            <th>Name <a href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></a></th>
+                            <th>Next Appointment <a href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></a></th>
+                            <th>Episodes <a href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></a></th>
+                        </thead>
+
+                        <tr>
+                    <td style="height:40px; border-bottom: 1px solid black;  font-size:30px;" valign="bottom">
+        
+                                <span class="glyphicon glyphicon-user blue"></span>
+                                John BonBon
+                    
+                    </td>
+                    <td style="height:40px;  font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                        <text>08/31/15</text>
+                    </td>
+                    <td style="height:40px; font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                     <strong>10</strong>
+                    </td>
+                        </tr>
+                        <tr>
+                    <td style="height:40px; border-bottom: 1px solid black;  font-size:30px" valign="bottom">
+        
+                                <span class="glyphicon glyphicon-user blue"></span>
+                                Don BonBon
+                    
+                    </td>
+                    <td style="height:40px;  font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                        <text>08/31/15</text>
+                    </td>
+                    <td style="height:40px; font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                     <strong>10</strong>
+                    </td>
+                        </tr>
+                        <tr>
+                    <td style="height:40px; border-bottom: 1px solid black;  font-size:30px" valign="bottom">
+        
+                                <span class="glyphicon glyphicon-user blue"></span>
+                                John Bon
+                    
+                    </td>
+                    <td style="height:40px;  font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                        <text>08/31/15</text>
+                    </td>
+                    <td style="height:40px; font-size:30px;  border-bottom: 1px solid black;" valign="bottom">
+                     <strong>10</strong>
+                    </td>
+                        </tr>
+                    </table>
+        </div>
+        <div class="col-xs-2">
+
+        </div>
+      </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
