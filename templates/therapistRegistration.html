@@ -16,26 +16,11 @@
 </head>
 
 
-<body style="background-image: url(/stylesheets/pictures/registration/Background.png); background-size:100%;">
+<body>
 <div class="container-fluid">
-	  <!-- Navigation Bar Row  -->
-  	<div class="row">
-    	<div class="col-xs-12">
-      		<nav class="navbar navbar-fixed-top" style="border-bottom: 2px solid gray; background:rgba(255,255,255,0.92); color: #1db5cc;">
-        		<div class="container-fluid">
-          			<div class="navbar-header">
-            			<a class="navbar-brand brand" href="/"><span><strong>n</strong></span>OCD</a>
-          			</div>
-          			<div>
-            			<ul class="nav navbar-nav navbar-right nav-pills navpills-blue">
-              				<li><a href="/signup" class="navpill-blue">Sign Up</a></li>
-              				<li><a href="/login" class="navpill-blue">Log In</a></li> 
-            			</ul>
-          			</div>
-        		</div>
-      		</nav>
-    	</div>
-  	</div>
+	  {%from 'macros.html' import navbar%}
+    {{ navbar() }}
+
 
 <div class="row" align="center">
 	<div class="row row-inner" style="height:100px;">

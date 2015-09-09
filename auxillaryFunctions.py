@@ -1,3 +1,6 @@
+import calendar, datetime, json,time
+
+#imports for sendgrid 
 from sendgrid import SendGridClient
 from sendgrid import Mail
 
@@ -12,4 +15,8 @@ def sendEmail(sender, recipient, subject, html, text) :
     message.add_to(recipient)
     sg.send(message)
     return True
+
+
+def generateCalendar (events) :
+	pass
 

@@ -1,31 +1,35 @@
-{% macro loginForm(email, password, form)%}
+{% macro loginForm(email, password, form,error)%}
 
 <style>
 	.form-control {
-		border-color:black; 
+		border-color:#c8cacb; 
 		border-width:2px; 
 	}
 
 	.label {
-		color:white;
-		font-size: 20px;
+		color:#353a43;
+		font-size: 15px;
 	}
 
 	.nOCD-label{
-		color: white;
+		color: #1db5cc;
 		font-size:60px;
 	}
 	.button {
-		background-color: #EBEBEB;
+		background-color: #1db5cc;
 	}
-
 </style>
 
-<div class="container" style="border-radius: 10px; min-height:420px; max-width:350px; border: groove; border-width:5px; border-color:#4BB2CC; background-color:#3fa9f5" align="center">
-	<p class="nOCD-label"><strong>nODC</strong></p>
-	<form role="form" action="/login" method="post">
+<div class="container" align="left">
+	<p class="nOCD-label"><strong>nOCD</strong></p>
+	<form style="width: 301px"role="form" action="/login" method="post">
 	   	{{ form.csrf_token }}
-	    {% if form.errors %}
+	   	{% if error %}
+	   		<div class="alert alert-danger">
+	   			<h3>{{ error }}</h3>
+	   		</div>
+	   	{% else %}
+	    	{% if form.errors %}
 	    	<div class="alert alert-danger">
 		    	<ul class='errors'>
 		    		{% for error in form.errors %}
@@ -33,17 +37,19 @@
     				{% endfor %}
     			</ul>
     		</div>
+  			{% endif %}
   		{% endif %}
-
 	    <div class="form-group" style="max-width:300px;">
 			{{email.label(class_="label")}}
-			{{email(class_="form-control")}}
+			{{email(class_="form-control",  placeholder="enter your email")}}
     	</div>
     	<div class="form-group" style="max-width:300px">
  			{{password.label(class_="label")}}
- 			{{password(class_="form-control")}}
-    	</div>    
-    	<button type="submit" class="btn button"><strong>Submit</strong></button>
+ 			{{password(class_="form-control",  placeholder="enter your password")}}
+    	</div>  
+    	
+    	<button type="submit" class="btn button"><strong>Login</strong></button>
+    	
   	</form>
 </div>
 {% endmacro %}
@@ -73,8 +79,8 @@
 			<h2 style="color:#1db5cc">Specialist Registration</h2>
 		</center>
 	   	{{ form.csrf_token }}
-	   	{% if error is defined %}
-	   		<div class="alert alert-warning">
+	   	{% if error %}
+	   		<div class="alert alert-danger">
 	   			<h3>{{ error }}</h3>
 	   		</div>
 	   	{% else %}

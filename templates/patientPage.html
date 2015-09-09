@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>nOCD</title>
+	<!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/patientPage.css">
+<script type="text/javascript" src="/stylesheets/chart.js"></script>
+<!--Including Scripts for Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+    <script>
+    function revealGeneral() {
+        var data = {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+            {
+            label: "My First dataset",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [65, 59, 80, 81, 56, 55, 40]
+            },
+            {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [28, 48, 40, 19, 86, 27, 90]
+            }
+            ]
+            };
+        var ctx=document.getElementById('overviewChart').getContext('2d');
+        theChart=new Chart(ctx).Line(data);
+
+    }
+    </script>
+
+
+</head>
+<body>
+<div class="container-fluid">
+ 
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn() }}
+
+
+    <div class="row row-body">
+        <div class="row row-inner">
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-7">
+                <style type="text/css">
+                td {
+                    
+                    font-size:20px;
+
+                }
+                th {
+                    color:#353a43;
+                    font-size:20px;
+
+                }
+                .black {
+                    color: #353a43;
+                }
+                .blue {
+                    color: #1db5cc;
+                }
+                </style>
+                <table style="width:800px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <tr>
+                        <th  colspan="2" style=""> {{patient.name}}</th> 
+                        <th>Next Appointment</th>
+                        <th>Episodes</th>
+                    </r>
+                    <tr>
+                        <td colspan="2">
+                            {{patient.email}}
+                        </td>
+                        <td>
+                            {{patient.nextAppointment}}
+                        </td>
+                        <td>
+                            {{patient.episodes}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-1">
+            </div>
+        </div>
+        <div class="row row-inner">
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-3" align="left">
+                <ul class="nav nav-pills nav-stacked" style="position:relative; top: 50px;display: inline-block;font-size:20px;" align="left">
+                    <li class="active">
+                        <a data-toggle="pill" class="nav-pill-gray" href="#basicInfo">Basic Info</a>
+                    </li>
+                    <li >
+                        <a data-toggle="pill" class="nav-pill-gray" href="#ERPInfo">ERP HW</a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#episodeData">Episode Data</a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#vs">ERP vs Organic Episodes</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-7">
+                <div style="height:50px;">
+                </div>
+                <div class="tab-content content" >
+                    
+                    <div id="basicInfo" class="tab-pane fade in active">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h4 align="center">Obsessions</h4>
+                                <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
+                                    {% for obsessionPill in obsessionPills %}
+                                        {{obsessionPill}}
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                            <div class="col-xs-8 sub-content">
+                                <div class="tab-content">
+                                    {% for obsessionPane in obsessionPanes%}
+                                        
+                                        {{obsessionPane}}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="ERPInfo" class="tab-pane fade in">
+                        <ul class="nav nav-pills nav-justified sub-nav" align="left">
+                            <li class="active">
+                                <a data-toggle="pill" class="nav-pill-gray" href="#overviewGraph">Overview</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" class="nav-pill-gray" href="#breakdownList">ERP Hws</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" >
+                            <div id="overviewGraph" class="tab-pane fade in active">
+                                <div class="row dropped">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-default"onclick="revealGeneral();">General</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <canvas id="overviewChart" width="400" height="400"></canvas>
+
+                                    </div>
+                                </div>                     
+                            </div>
+                            <div id="breakdownList" class="tab-pane fade in">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-1">
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

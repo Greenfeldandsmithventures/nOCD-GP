@@ -1,0 +1,56 @@
+{% macro navbarLoggedIn() %}
+
+
+      <!-- Navigation Bar Row  -->
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="navbar navbar-fixed-top" style="border-bottom: 2px solid gray; background:rgba(255,255,255,0.92); color: #1db5cc;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand brand" href="/"><span><strong>n</strong></span>OCD</a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right nav-pills navpills-blue">
+                            <li><a href="/myPatients" class="navpill-blue">My Patients
+                            </a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#1db5cc">Connect To Patients
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/invitePatients">Invite Patients to nOCD</a></li>
+                                    <li><a href="/findNewPatients">Find New Patients</a></li>
+                                    <li><a href="viewMyPatients">View My Patients</a></li>
+                                </ul>
+                            </li> 
+                            <li><a class="navpill-blue" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+{%endmacro%}
+
+{% macro navbar() %}
+
+      <!-- Navigation Bar Row  -->
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="navbar navbar-fixed-top" style="border-bottom: 2px solid gray; background:rgba(255,255,255,0.92); color: #1db5cc;">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand brand" href="/"><span><strong>n</strong></span>OCD</a>
+                    </div>
+                    <div>
+                        <ul class="nav navbar-nav navbar-right nav-pills navpills-blue">
+                            <li><a href="/therapistRegistration" class="navpill-blue">Sign Up</a></li>
+                            <li><a href="/login" class="navpill-blue">Log In</a></li> 
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+{% endmacro %}

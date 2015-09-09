@@ -1,9 +1,11 @@
 
 .photo {
-	min-height: 625;
-	max-height: 625;
-	width : 325;
+	height: 583;
+	width : 320;
 
+}
+.path {
+	fill:blue;
 }
 
 .glyphicon-blue {
@@ -28,7 +30,7 @@
 .row-body {
 	position  : relative; 
 
-	top       : 100;
+	top       : 100px;
 
 }
 
@@ -69,7 +71,7 @@
 }
 
 .row-full {
-	height: 823px;
+	min-height: 823px;
 }
 
 .row-white-smoke {

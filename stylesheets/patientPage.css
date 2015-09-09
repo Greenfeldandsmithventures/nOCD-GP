@@ -1,0 +1,33 @@
+.sub-nav {
+	position:relative; 
+	top: 10px;
+	left: 10px;
+	display: inline-block;
+	font-size:15px;
+
+}
+
+.content {
+	min-height: 400px;
+	border-radius: 10px 0 0 0;
+	border-top: 2px solid #c8cacb; 
+	border-left: 2px solid #c8cacb;
+
+}
+
+.sub-content {
+	position:relative; 
+	top: 60px;
+	min-height: 400px !important;
+	border-radius: 10px 0 0 0;
+	border-top: 2px solid #c8cacb; 
+	border-left: 2px solid #c8cacb;
+
+}
+
+.dropped {
+	position:relative; 
+	top: 10px;
+	left: 10px;
+
+}

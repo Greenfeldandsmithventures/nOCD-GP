@@ -4,6 +4,9 @@
 <head>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+<!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+
 <script type="text/javascript" href="js/jq.js"></script>
 
 	<title>
@@ -15,10 +18,24 @@
 
 
 <body>
+<div class="container-fluid" >
+  
+    {%from 'macros.html' import navbar%}
+    {{ navbar() }}
 
-{%from "forms.html" import loginForm %}
-{{loginForm(form.email, form.password, form)}}
 
+
+    <div class="row row-body">
+    	<div class="col-xs-4">
+    	</div>
+    	<div class="col-xs-4">
+			{%from "forms.html" import loginForm %}
+			{{loginForm(form.email, form.password, form,error)}}
+		</div>
+		<div class="col-xs-4">
+    	</div>
+	</div>
+</div>
 
 </body>
 

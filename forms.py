@@ -265,8 +265,8 @@ treatmentMethodsList=[('video_chat/skype', 'Video Chat/Skype'), ('phone', 'Phone
 
 
 class LoginForm(Form):
-    email    = StringField('Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email    = StringField('Email', validators=[DataRequired()], description='enter your email')
+    password = PasswordField('Password', validators=[DataRequired()], default='enter your password')
 
 class TherapistRegistrationForm(Form):
 	global stateChoices

@@ -24,15 +24,51 @@ class Specialist(ndb.Model) :
 	emailVerified   =ndb.BooleanProperty()
 	typesOfPractice =ndb.StringProperty()
 	patientCodes	=ndb.StringProperty()
+	secretCode		=ndb.StringProperty()
 
 
 class Patient(ndb.Model) :
+	firstName 		=ndb.StringProperty()
+	lastName		=ndb.StringProperty()
 	name 			=ndb.StringProperty()
 	password		=ndb.StringProperty()
 	email 			=ndb.StringProperty()
 	uniqueID		=ndb.StringProperty()
 	nextAppointment =ndb.StringProperty()
 	episodes 		=ndb.IntegerProperty()
+	obsessions		=ndb.StringProperty()
+
+class Trigger(ndb.Model) :
+	triggerID		=ndb.StringProperty()
+	obsessionID		=ndb.StringProperty()
+	trigger 		=ndb.StringProperty()
+	userID			=ndb.StringProperty()
+
+class Interests(ndb.Model) :
+	interestID		=ndb.StringProperty()
+	userID			=ndb.StringProperty()
+	interest 		=ndb.StringProperty()
+
+class Obsession(ndb.Model) :
+	obsessionID		=ndb.StringProperty()
+	userID			=ndb.StringProperty()
+	obsession 		=ndb.StringProperty()
+
+class Tasks(ndb.Model) :
+	taskID			=ndb.StringProperty()
+	userID			=ndb.StringProperty()
+	task 			=ndb.StringProperty()
+
+class Hobbies(ndb.Model) :
+	hobbyID 		=ndb.StringProperty()
+	userID 			=ndb.StringProperty()
+	hobby 			=ndb.StringProperty()
+
+class Compulsion(ndb.Model) :
+	compulsionID	=ndb.StringProperty()
+	obsessionID		=ndb.StringProperty()
+	compulsion 		=ndb.StringProperty()
+
 
 
 

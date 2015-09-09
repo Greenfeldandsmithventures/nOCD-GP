@@ -1,0 +1,28 @@
+<!DOCTYPE <html>
+<head>
+    <title>nOCD</title>
+
+<!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+
+<!--Including Scripts for Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    
+</head>
+
+<body>
+<div class="container-fluid">
+    
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn() }}
+
+
+    <div class="row row-body">
+		<p>Congratulations on verifying your email! You may now begin to see the nOCD portal. However, some features are not enabled yet. Your account is going through intensive verification in order to ensure that our users are protected and given the best care possible.</p>
+</div>
+</div>
+</body>
+</html>
