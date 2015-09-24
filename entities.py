@@ -69,6 +69,31 @@ class Compulsion(ndb.Model) :
 	obsessionID		=ndb.StringProperty()
 	compulsion 		=ndb.StringProperty()
 
+class Place(ndb.Model) :
+	placeID			=ndb.StringProperty()
+	patientID		=ndb.StringProperty()
+	place 			=ndb.StringProperty()
+
+
+class ERPHW(ndb.Model) :
+	HWID			=ndb.StringProperty()
+	patientID		=ndb.StringProperty()
+	status			=ndb.StringProperty()
+	obsession		=ndb.StringProperty()
+	trigger			=ndb.StringProperty()
+	place			=ndb.StringProperty()
+	prompt			=ndb.TextProperty()
+	time 			=ndb.StringProperty()
+	dateTime		=ndb.StringProperty()
+
+
+class Note(ndb.Model) :
+	noteID			=ndb.StringProperty()
+	dateTime		=ndb.StringProperty()
+	note 			=ndb.TextProperty()
+	specialistID	=ndb.StringProperty()
+	patientID		=ndb.StringProperty()
+
 
 
 

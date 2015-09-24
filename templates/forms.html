@@ -22,7 +22,7 @@
 
 <div class="container" align="left">
 	<p class="nOCD-label"><strong>nOCD</strong></p>
-	<form style="width: 301px"role="form" action="/login" method="post">
+	<form id="loginForm"style="width: 301px"role="form" action="/login" method="post">
 	   	{{ form.csrf_token }}
 	   	{% if error %}
 	   		<div class="alert alert-danger">
@@ -47,6 +47,7 @@
  			{{password.label(class_="label")}}
  			{{password(class_="form-control",  placeholder="enter your password")}}
     	</div>  
+    		{{form.date}}
     	
     	<button type="submit" class="btn button"><strong>Login</strong></button>
     	
@@ -147,5 +148,163 @@
 
 
 {% endmacro %}
+
+{% macro EnterNoteForm(form, error, success) %}
+<style>
+
+	.label {
+		color: #353a43;
+		font-style: Calibri;
+		font-size: 15px;
+	}
+
+	.button {
+		background-color: #1db5cc;
+	}
+
+	.noteArea {
+		min-width: 400px;
+		min-height: 400px;
+	}
+
+	.noteTitle {
+		border-bottom: 2px solid #353a43;
+		border-top: none;
+		border-left: none;
+		border-right: none;
+
+	}
+
+	.noteForm {
+		border:1px solid #c8cacb;
+		min-width: 500px;
+		border-radius: 20px 20px 20px 20px;
+	}
+
+	#noteText {
+  		overflow: scroll;
+  		width: 300px;
+  		height: 300px;
+  		border: 1px solid #343a43;
+	}
+
+</style>
+
+
+	<form class="noteForm" id="saveNote"role="form" action="/saveNote" method="post" align="center" style="width:365px; background-color:#f4f3f4; overflow:scroll;">
+		{{ form.csrf_token }}
+
+		
+	   		<div hidden style="max-width:100px;" id="theNoteError" class="alert alert-danger">
+	   			{% if error %}	
+	   				<h3>{{ error }}</h3>
+	   			{% endif %}
+	   		</div>
+	   	
+	   	{% if success %}
+	   		<div  id="theNoteSuccess"class="alert alert-success">
+	   			<h3>Note Saved</h3>
+	   		</div>
+	   	{% endif %}
+	   	<div class="form-group"  align="center">
+ 			{{form.noteID.label(class_="label")}}
+ 			{{form.noteID(class_="noteTitle")}}
+    	</div> 
+		<div class="form-group"  align="center">
+ 			{{form.note.label(class_="label")}}
+    	</div>
+    	<center>
+   <div class="btn-toolbar" data-role="editor-toolbar" data-target="#noteText">
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          <li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li><li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li><li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li><li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li><li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li><li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li><li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li><li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li><li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li><li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li><li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li><li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li><li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li><li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li><li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li></ul>
+        </div>
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+          <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+          <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+          <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+          </ul>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+        <a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+        <a class="btn" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class="icon-strikethrough"></i></a>
+        <a class="btn" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"></i></a>
+        <a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"></i></a>
+        <a class="btn" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+        <a class="btn" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+        <a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+        <a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+        <a class="btn" data-edit="justifyfull" title="" data-original-title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+        <a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+      </div>
+      
+    </div>
+
+    	<div id="noteText" style="background-color:#FFF; border-radius: 10px 10px 10px 10px; border:none; width: 450px" name="noteText"></div>
+    </center>
+    	<div hidden class="form-group"  align="center">
+ 			{{form.note()}}
+    	</div>
+
+    	<button type="submit" class="btn button"><strong>Save Note</strong></button>
+	</form>
+
+<script type="text/javascript">
+    	$('#noteText').wysiwyg();
+    </script>
+{% endmacro %}
+
+{% macro AddERPHomeworkForm(form, innerForm) %}
+<style>
+  .form-control {
+    border-color:#c8cacb; 
+    border-width:2px; 
+  }
+
+  .label {
+    color:#353a43;
+    font-size: 15px;
+  }
+
+  .nOCD-label{
+    color: #1db5cc;
+    font-size:60px;
+  }
+  .button {
+    background-color: #1db5cc;
+  }
+</style>
+
+<form class="addERP" role="form" action="/addERPHomework" method="post" align="center" style="width:100%;">
+    {{form.csrf_token}}
+
+    {{innerForm}}
+    <div class="form-group"  align="center">
+ 			{{form.time.label(class_="label")}}
+ 			{{form.time()}}
+    </div> 
+    <div class="form-group"  align="center">
+ 			{{form.prompt.label(class_="label")}}
+ 			{{form.prompt()}}
+    </div> 
+      <button type="submit" class="btn button"><strong>Add HW</strong></button>
+  </form>
+
+
+{% endmacro %}
+
 
 

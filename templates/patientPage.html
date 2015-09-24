@@ -5,14 +5,156 @@
 	<!--Linking Style Sheets -->
 <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/patientPage.css">
-<script type="text/javascript" src="/stylesheets/chart.js"></script>
+<script type="text/javascript" src="/stylesheets/Chart.js"></script>
 <!--Including Scripts for Bootstrap -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Including stylesheets for fontawesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+    <script type="text/javascript" src="/stylesheets/bootstrap-wysiwyg.min.js"></script>
+
+<script type="text/javascript" src="/stylesheets/jquery.hotkeys.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+
+<!-- Linking Google charts -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script>
+    // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table, 
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Episode');
+        data.addColumn('number', 'Episodes');
+        data.addRows([
+            ['What if I forgot to lock the door', 3],
+            ['What if I forgot to turn off the stove', 1],
+            ['What if I forgot to lock the window', 1], 
+            ['What if I forgot to turn off the lights', 1],
+          ]);
+
+            // Set chart options
+        var options = {'title':"Breakdown of {{patient.firstName}}'s Episodes",
+                     'width':600,
+                     'height':500};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+
+var currMonth={{currMonth}};
+    function updatePills () {
+        $.get ('/getNotePane')
+        .done(function(data){
+            console.log('[ppeeepepep');
+            $('#notePanes').html(data);
+            console.log('[ppooooeeepepep');
+        }).fail(function () {
+        });
+    }
+    /*
+    function bindPops() {
+        $('[data-toggle="popovers"]').popover({
+        placement: 'top', 
+        html:true,}); 
+    $('[data-toggle="popover"]').popover({
+        trigger:'hover',
+        html:true,
+    });
+
+    }*/
+
+    $(document).ready(function(){
+        $('[data-toggle="popovers"]').popover({
+        placement: 'top', 
+        html:true,}); 
+    $('[data-toggle="popover"]').popover({
+        trigger:'hover',
+        html:true,
+    });
+    /*
+    $('#scheduleTab').on('click', '.addERP', function(e) {
+
+        $('[data-toggle="popovers"]').popover({
+        placement: 'top', 
+        html:true,}); 
+    $('[data-toggle="popover"]').popover({
+        trigger:'hover',
+        html:true,
+    });
+
+    });
+
+    /*
+    $('#scheduleTab').on('submit','.addERP', function(e) {
+        console.log('nooooiiissseee');
+        e.preventDefault();
+        
+        var theForm= $(this).serialize();
+        $.post('/addERPHomework', theForm)
+        .done(function(data){
+            console.log('noseee');
+            $('#scheduleTab').html(data);
+            setTimeout(bindPops, 1000);
+        }).fail(function () {
+            console.log('noeee');
+        });
+
+    });
+    */
+    $('#addNote').delegate('#saveNote','submit', function(e) {
+        console.log('noooo');
+        e.preventDefault();
+        var temp=$('#noteText').html();
+        console.log(temp);
+        $('#note').val(temp);
+        var theForm= $('#saveNote').serialize();
+        $.post('/saveNote', theForm)
+        .done(function(data){
+
+            $('#addNote').html(data);
+            setTimeout(updatePills, 1000);
+        }).fail(function () {
+            $('#theNoteError').show();
+            $('#theNoteError').html("<h3>Oops Something went wrong please try again</h3>")
+        });
+
+    });
+
+
+    });
+
+
+
+    function clearNote() {
+        $('#noteID').val('');
+        $('#note').val('');
+        $('#theNoteError').hide();
+        $('#theNoteSuccess').hide();
+    }
+
+    function calNavLeft() {
+        currMonth = currMonth-1;
+        $('.calendarRow').hide();
+        $('.monthCal'+currMonth).show();
+    }
+    function calNavRight() {
+        currMonth = currMonth+1;
+        $('.calendarRow').hide();
+        $('.monthCal'+currMonth).show();
+    }
     function revealGeneral() {
         var data = {
             labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -79,7 +221,7 @@
                 </style>
                 <table style="width:800px; background-color:white; border-collapse: separate;color:#c8cacb;">
                     <tr>
-                        <th  colspan="2" style=""> {{patient.name}}</th> 
+                        <th  colspan="2"> {{patient.name}}</th> 
                         <th>Next Appointment</th>
                         <th>Episodes</th>
                     </r>
@@ -104,17 +246,19 @@
             </div>
             <div class="col-xs-3" align="left">
                 <ul class="nav nav-pills nav-stacked" style="position:relative; top: 50px;display: inline-block;font-size:20px;" align="left">
+                    
+                
                     <li class="active">
-                        <a data-toggle="pill" class="nav-pill-gray" href="#basicInfo">Basic Info</a>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#scheduleTab">{{patient.firstName}}'s Schedule</a>
                     </li>
                     <li >
-                        <a data-toggle="pill" class="nav-pill-gray" href="#ERPInfo">ERP HW</a>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#manageERP">Manage {{patient.firstName}}'s ERP HW</a>
                     </li>
                     <li>
-                        <a data-toggle="pill" class="nav-pill-gray" href="#episodeData">Episode Data</a>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#dataTab">{{patient.firstName}}'s Data</a>
                     </li>
                     <li>
-                        <a data-toggle="pill" class="nav-pill-gray" href="#vs">ERP vs Organic Episodes</a>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#myNotes">My Notes</a>
                     </li>
                 </ul>
             </div>
@@ -122,57 +266,101 @@
                 <div style="height:50px;">
                 </div>
                 <div class="tab-content content" >
-                    
-                    <div id="basicInfo" class="tab-pane fade in active">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <h4 align="center">Obsessions</h4>
-                                <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
-                                    {% for obsessionPill in obsessionPills %}
-                                        {{obsessionPill}}
-                                    {% endfor %}
+                    <div id="scheduleTab" class="tab-pane fade in active">
 
-                                </ul>
-                            </div>
-                            <div class="col-xs-8 sub-content">
-                                <div class="tab-content">
-                                    {% for obsessionPane in obsessionPanes%}
-                                        
-                                        {{obsessionPane}}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-
+                            {% for monthCal in monthCalendars %}
+                                {{monthCal}}
+                            {% endfor %}
+                        
                     </div>
-                    <div id="ERPInfo" class="tab-pane fade in">
+                    <div id="manageERP" class="tab-pane fade in">
+                        <h1>Add ERP HW</h1>
+                    </div>
+                    <div id="dataTab" class="tab-pane fade in">
                         <ul class="nav nav-pills nav-justified sub-nav" align="left">
                             <li class="active">
                                 <a data-toggle="pill" class="nav-pill-gray" href="#overviewGraph">Overview</a>
                             </li>
                             <li>
-                                <a data-toggle="pill" class="nav-pill-gray" href="#breakdownList">ERP Hws</a>
+                                <a data-toggle="pill" class="nav-pill-gray" href="#breakdownList">ERP HW</a>
+                            </li>
+                            <li >
+                                <a data-toggle="pill" class="nav-pill-gray" href="#obsessions">Heirarchy </a>
                             </li>
                         </ul>
                         <div class="tab-content" >
                             <div id="overviewGraph" class="tab-pane fade in active">
                                 <div class="row dropped">
                                     <div class="col-xs-12">
-                                        <button class="btn btn-default"onclick="revealGeneral();">General</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <canvas id="overviewChart" width="400" height="400"></canvas>
+                                        <div id="chart_div" style="width:400; height:300"></div>
 
                                     </div>
                                 </div>                     
                             </div>
                             <div id="breakdownList" class="tab-pane fade in">
                             </div>
-                        </div>
-                    </div>
+                            <div id="obsessions" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <h4 align="center">Obsessions</h4>
+                                        <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
+                                            {% for obsessionPill in obsessionPills %}
+                                                {{obsessionPill}}
+                                            {% endfor %}
 
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="tab-content">
+                                            {% for obsessionPane in obsessionPanes%}
+                                        
+                                                {{obsessionPane}}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="myNotes" class="tab-pane fade in">
+                        <ul class="nav nav-pills nav-justified" >
+                            <li class="active">
+                                <a data-toggle="pill" class="nav-pill-gray" href="#myNotesList">Notes</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" class="nav-pill-gray" onclick="clearNote();" href="#addNote">New Note</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content " >
+                            <div id="myNotesList" class="tab-pane fade in active">
+                                <div id="notePanes"  class="row">
+                                    <div class="col-xs-4" style="overflow-y: scroll;max-height: 300px;">          
+                                        <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
+                                            {% for notePill in notePills %}
+                                                {{notePill}}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-8" >
+                                        <div class="tab-content">
+                                            {% for notePane in notePanes%}                        
+                                                {{notePane}}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="addNote" class="tab-pane fade in" align="center">
+ 
+                                {% from "forms.html" import EnterNoteForm%}
+                                {{EnterNoteForm(noteForm, noteFormError)}}
+                            </div>
+
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
             <div class="col-xs-1">
