@@ -3,38 +3,30 @@
     <title>nOCD</title>
 
 <!--Linking Style Sheets -->
-<link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 
 <!--Including Scripts for Bootstrap -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     
 </head>
 
 <body>
+
 <div class="container-fluid">
-	      <!-- Navigation Bar Row  -->
-    <div class="row">
-        <div class="col-xs-12">
-            <nav class="navbar navbar-fixed-top" style="border-bottom: 2px solid gray; background:rgba(255,255,255,0.92); color: #1db5cc;">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand brand" href="/"><span><strong>n</strong></span>OCD</a>
-                    </div>
-                    <div>
-                        <ul class="nav navbar-nav navbar-right nav-pills navpills-blue">
-                            <li><a href="/therapistRegistration" class="navpill-blue">Sign Up</a></li>
-                            <li><a href="/login" class="navpill-blue">Log In</a></li> 
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+    
+    {%from 'macros.html' import navbar%}
+    {{ navbar() }}
+
+
+    <div class="row row-body">
+        <div class="row row-inner">
+            <div class="col col-xs-12">
+                <h2>Please Verify your email</h2>
+            </div>
         </div>
-    </div>
-<div class="row row-body">
-	<p>Please verify your email.</p>
 </div>
 </div>
 </body>

@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+<head>
+	<title>nOCD</title>
+
+	<!--Linking Style Sheets -->
+		<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+		<link rel="stylesheet" type="text/css" href="/resources/css/patientPage.css">
+	<!--Including Scripts for Bootstrap -->
+   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- Including resources for fontawesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!--Linkning scripty for richtext   -->
+	   <script type="text/javascript" src="/resources/js/bootstrap-wysiwyg.min.js"></script>
+        <script type="text/javascript" src="/resources/js/jquery.hotkeys.js"></script>
+
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#formRow').delegate('#invitationForm', 'submit', function(e) {
+
+            var temp=$('#invitationText').html();
+            $('#invitation').val(temp);
+            console.log('pop');
+        });
+    });
+    </script>
+
+</head>
+<body >
+ 
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn(numRequests) }}
+
+    <div class="row row-body">
+    	<div class="row row-inner" id="formRow">
+    		<div class="col-xs-1">
+            </div>
+
+            <div class="col-xs-10">
+
+                <center>
+            	   {%from "forms.html" import InvitePatientForm %}
+				    {{InvitePatientForm(form, error, success, hideDanger)}}
+                </center>
+
+            </div>
+
+            <div class="col-xs-1">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

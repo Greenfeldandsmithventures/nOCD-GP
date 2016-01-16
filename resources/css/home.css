@@ -1,0 +1,169 @@
+.body {
+	background-color: -webkit-linear-gradient(#F0F1F1,#FCFCFC);
+	background: -o-linear-gradient(#F0F1F1,#FCFCFC); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#F0F1F1,#FCFCFC); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#F0F1F1,#FCFCFC); /* Standard syntax */
+}
+.photo {
+	height: 583;
+	width : 320;
+
+}
+.path {
+	fill:blue;
+}
+
+.glyphicon-blue {
+	color: #1db5cc;
+
+}
+
+.brand {
+	color :#1db5cc;
+
+}
+
+.carousel-side-clear {
+	background-color: rgba(255,255,255,0.0) !important;
+}
+
+.navbar-design {
+	border-bottom-style: solid;
+}
+
+
+.row-body {
+	position  : relative; 
+
+	top       : 100px;
+
+}
+	#pinContainer {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	.panel {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
+
+.row-inner {
+	border-radius: 10px/100px;
+	max-width: 1200px;
+
+}
+
+.testimonial {
+
+	color: #353a43;
+}
+
+.testimonial-col {
+	min-height: 250px !important;
+}
+
+.rounded {
+	border-radius : 50% 50% 50% 50%;
+
+	position: relative;
+
+}
+
+.popover {
+	min-width: 80%;
+
+
+}
+
+.row-white {
+	background :white ;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #353a43;
+	color : #1db5cc;
+	border-radius: 10px/100px;
+
+}
+
+.row-full {
+	min-height: 823px;
+		border-radius: 10px/100px;
+
+}
+
+.row-white-smoke {
+	background: #f4f3f4;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #353a43;
+	border-radius: 10px/100px;
+
+	color :#353a43;
+
+}
+
+.row-blue {
+	background: #1db5cc;
+	border-radius: 10px/100px;
+	color     : white;
+}
+
+.row-light-gray {
+	background: #c8cacb;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #353a43;
+	color     : #353a43;
+	border-radius: 10px/100px;
+
+}
+
+.navpill-blue {
+	color: #1db5cc;
+
+}
+
+.nav-pill-gray {
+	color: #888e97;
+
+}
+
+.nav-pill-orange {
+	color: #f37501;
+
+
+}
+.nav-pill-blue {
+	color: #383e49;
+	font-weight:strong;
+
+
+}
+.spaced-pills {
+	margin-left  :  25px !important;
+	margin-right : 25px !important;
+}
+
+.centered-pills {  
+    text-align: center
+}
+.centered-pills ul.nav-pills {
+    display: inline-block
+}
+.centered-pills li {
+    display: inline
+}
+.centered-pills a {
+    float: left
+}
+* html .centered-pills ul.nav-pills, *+html .centered-pills ul.nav-pills {
+    display: inline
+}
+
+.nav-pills>li.active>a,.nav-pills>li.active>a:focus,.nav-pills>li.active>a:hover{color:#353a43 !important;fill:#1db5cc;background-color:#f4f3f4 !important; border:solid 2px #1db5cc;}
+
+.glyphicon-magnifying-glass. {
+		
+}

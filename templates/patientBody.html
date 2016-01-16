@@ -1,0 +1,700 @@
+
+<script language="javascript" type="text/javascript">
+    // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.load('visualization', '1.1', {packages: ['line']});
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawCharts);
+
+      // Callback that creates and populates a data table, 
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
+      {{drawERPYearGraphFunction}}
+
+    function drawTimeOfDayChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', "Time of Day");
+      data.addColumn('number', "Episodes");
+
+      data.addRows([
+        ["Morning", {{morningUse}}4],
+        ["Afternoon", {{afternoonUse}}3],
+        ["Night", {{nightUse}}3]
+       
+      ]);
+
+      var options = {
+        title: 'Time of Day for Episodes',
+        colors: ['#9575cd', '#33ac71'],
+        hAxis: {
+          title: 'Time of Day',
+          format: 'h:mm a',
+
+        },
+        vAxis: {
+          title: 'Number of Episodes'
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('timeOfDayChart'));
+      chart.draw(data, options);
+    }
+    function drawEpisodeObsessionDonutChart() {
+        // Create the data table.
+        var data = new google.visualization.arrayToDataTable({{episodeByObsessionList}});
+
+            // Set chart options
+        var options = {'title':"Episodes by Obsessions",
+          legend: { position: 'none' },
+          'width':250,
+          'height':300,
+          pieSliceText: 'none',
+          pieHole: .4,};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('episodeByObsessionChart'));
+        chart.draw(data, options);
+    }
+    function drawEpisodeTriggerDonutChart() {
+        var data = google.visualization.arrayToDataTable({{episodeByTriggerList}});
+
+        var options = {
+          title: 'Episodes by Triggers',
+          legend: { position: 'none' },
+          'width':250,
+          'height':300,
+          pieSliceText: 'none',
+          pieHole: .4,
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('episodeByTriggerChart'));
+        chart.draw(data, options);
+      }
+    function drawERPObsessionDonutChart() {
+        var data = google.visualization.arrayToDataTable({{hwByObsessionList}});
+
+        var options = {
+          title: 'ERP HW by Obsessions',
+          legend: { position: 'none' },
+          'width':250,
+          'height':300,
+          pieSliceText: 'none',
+          pieHole: .4,
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('HWByObsessionChart'));
+        chart.draw(data, options);
+      }
+      function drawERPTriggerDonutChart() {
+        var data = google.visualization.arrayToDataTable({{hwByTriggerList}});
+
+        var options = {
+          title: 'ERP HW by Triggers',
+          legend: { position: 'none' },
+          'width':250,
+          'height':300,
+          pieSliceText: 'none',
+          pieHole: .4,
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('HWByTriggerChart'));
+        chart.draw(data, options);
+      }
+
+    /*function drawEpisodeByMonthGraph() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Month');
+      data.addColumn('number', 'Number of Episodes');
+
+      data.addRows([{{episodeByMonthList}}]);
+
+        var options = {
+            vAxis: {
+                title: "Number of Episodes",
+            },
+            hAxis: {
+                title: 'Month',
+            },
+            legend: 'none',
+            title: 'Episode Frequency',
+        };
+
+      var chart = new google.visualization.LineChart(document.getElementById('episodeByMonthGraph'));
+
+      chart.draw(data, options);
+    }
+
+    function drawHwByMonthGraph() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Month');
+      data.addColumn('number', 'Number of HW');
+
+      data.addRows([{{hwByMonthList}}]);
+
+        var options = {
+            vAxis: {
+                title: "Number of ERP HW's",
+            },
+            hAxis: {
+                title: 'Month',
+            },
+            legend: 'none',
+            title: 'ERP HW Frequency',
+
+
+      var chart = new google.visualization.LineChart(document.getElementById('hwByMonthGraph'));
+
+      chart.draw(data, options);
+    }*/
+    {{erpMonthChartFunctions}}
+    {{episodeMonthChartFunctions}}
+
+    {{erpYearGraphFunctions}}
+    {{episodeYearGraphFunctions}}
+    {{erpByWeekChartFunctions}}
+    function drawCharts() {
+        drawERPByYearGraph();
+        drawEpisodeByYearGraph();
+        drawEpisodeObsessionDonutChart();
+        drawEpisodeTriggerDonutChart();
+        drawERPObsessionDonutChart();
+        drawERPTriggerDonutChart();
+        //drawHwByMonthGraph();
+        //drawEpisodeByMonthGraph();
+        drawTimeOfDayChart();
+
+        {{episodeMonthChartsToDraw}}
+        {{erpMonthChartsToDraw}}
+    }
+
+    function switchHWChart(newChartName) {
+        $('.HWChart').hide();
+        $('#'+newChartName).show();
+    }
+
+    function switchHWGraph(newChartName) {
+        $('.HWGraph').hide();
+        $('#'+newChartName).show();
+    }
+    function switchEpisodeChart(newChartName) {
+        $('.episodeChart').hide();
+        $('#'+newChartName).show();
+    }
+    function switchEpisodeGraph(newChartName) {
+        $('.episodeGraph').hide();
+        $('#'+newChartName).show();
+    }
+
+    var currMonth={{currMonth}};
+    var currYear=0;
+    function updatePills () {
+        $.get ('/getNotePane')
+        .done(function(data){
+            console.log('[ppeeepepep');
+            $('#notePanes').html(data);
+            console.log('[ppooooeeepepep');
+        }).fail(function () {
+        });
+    }
+    
+$(document).ready(function(){
+    //Add event handler to the slector for HW charts 
+    //to allow switch between hwbyobsession vs hwByTrigger
+    $('#dataTab').on('change', '#HWChartSelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".HWChart").hide();
+         $("#"+selected).show();
+        console.log('popppp');
+      });
+    //Add event handler to the slector for episode charts 
+    //to allow switch between episodeByObsession vs episodeByTrigger
+    $('#dataTab').on('change', '#episodeChartSelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".episodeChart").hide();
+         $("#"+selected).show();
+        console.log(selected);
+      });
+
+
+    $('#dataTab').on('change', '#ERPMonthFrequencySelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".erpHWFrequencyGraph").hide();
+         $("#"+selected).show();
+        console.log(selected);
+      });
+    $('#dataTab').on('change', '#EpisodeMonthFrequencySelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".episodeFrequencyGraph").hide();
+         $("#"+selected).show();
+        console.log(selected);
+      });
+    $('#dataTab').on('change', '#episodeFrequencySelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".episodeFrequencySection").hide();
+         $("#"+selected).show();
+        console.log(selected);
+      });
+    $('#dataTab').on('change', '#erpFrequencySelector', function() {
+        var selected = $(this).find(':selected').val();
+        $(".erpFrequencySection").hide();
+         $("#"+selected).show();
+        console.log(selected);
+      });
+
+    //Assigns click handler to remove ERPButtons to
+    //handle removing ERP HW
+    $('#scheduleTab').on('click', '.removeERPButton', function() {
+        console.log('feefefef');
+        var HWID=$(this).val();
+        $.get('/removeERP/'+HWID).done(function(){
+            console.log('[ppeeepepesdsdsdsdp');
+            setTimeout(window.location='/myPatients/{{patientCode}}', 2000);
+        }).fail(function () {
+        });
+    });
+
+    //Add event handler to delete note buttons
+    //to handle deleting notes 
+    $('#myNotes').on('click', '.deleteNoteButton', function(e) {
+        e.preventDefault();
+        console.log('feefefsddef');
+        var noteID=$(this).val();
+        $.get('/removeNote/'+noteID).done(function(){
+            console.log('[ppeeepepesdsdsdsdp');
+            setTimeout(updatePills, 1000);
+        }).fail(function () {
+        });
+    });
+
+    //Add popovers to the create hws in calendar
+    $('[data-toggle="popovers"]').popover({
+        placement: 'bottom',
+
+        html:true,}); 
+    //add popovers to the hws in calendar
+    $('[data-toggle="popover"]').popover({
+        placement: 'left',
+        html:true,
+    });
+
+    //Event handler for when adding hw to make 
+    //Triggers and such align with selected obsession
+    $('#scheduleTab').on('change', '.obsessionSelector', function() {
+        var selected = $(this).find(':selected').text();
+        $(".triggerSelector").hide();
+        $(".placeSelector").hide();
+        $("[name='trigger"+selected+"']").show();
+        $("[name='place"+selected+"']").show();
+      });
+
+    //Add event handler to add erp buttons to opening
+    //an add erp hw popover so load initial options
+    //for obsession triggers and such
+    $('#scheduleTab').on('click', '.addERPButton', function() {
+        $(".triggerSelector").hide();
+        $(".placeSelector").hide();
+        var selected = $(".obsessionSelector").find(':selected').text();
+        $(".triggerSelector").hide();
+        $(".placeSelector").hide();
+        $("[name='trigger"+selected+"']").show();
+        $("[name='place"+selected+"']").show();
+        
+      });
+    
+    //Add event handler to handle submission of new
+    //erp homeworks
+    $('#scheduleTab').on('submit','.addERP', function(e) {
+        e.preventDefault();
+        var selected = $(".obsessionSelector").find(':selected').value();
+
+        console.log('nooooiiissseee'+selected);
+        var temp=$('#promptText').html();
+        $('#prompt').val(temp);
+        temp=$("[name='trigger"+selected+"']").val();
+        console.log("plopped"+temp);
+        $('#triggers').val(temp);
+        temp=$('.placeSelector',':visible').val();
+        $('#places').val(temp);
+        $("#obsessionSelector").val(selected)
+        var theForm=$(this).serialize();
+        console.log("pop");
+        console.log(theForm);
+        $.post('/addERPHomework', theForm)
+        .done(function(data){
+            console.log("data"+data);
+            setTimeout(window.location='/myPatients/{{patientCode}}', 1000);
+        }).fail(function () {
+            $('#theNoteError').show();
+            $('#theNoteError').html("<h3>Oops Something went wrong please try again</h3>")
+        });
+
+    });
+    //Add handler to handle submission of new notes 
+    $('#addNote').delegate('#saveNote','submit', function(e) {
+        e.preventDefault();
+        var temp=$('#noteText').html();
+        var theForm= $('#saveNote').serialize();
+        theForm=theForm+temp;
+        $.post('/saveNote', theForm)
+        .done(function(data){
+            $('#addNote').html(data);
+            setTimeout(updatePills, 1000);
+        }).fail(function () {
+            $('#theNoteError').show();
+            $('#theNoteError').html("<h3>Oops Something went wrong please try again</h3>")
+        });
+
+    });
+    //Add event handler to handle saving edited notes
+    $('#myNotes').delegate('.saveEditNote','submit', function(e) {
+        
+        console.log("    jaja");
+        e.preventDefault();
+        var temp=$('.noteText', this).html();
+        var noteID=$('.oldNoteID', this).val();
+        console.log(temp+"    jaja");
+        $('.noteTextArea', this).html(temp);
+        var theForm= $(this).serialize();
+        console.log(theForm);
+        //theForm=theForm+temp;
+        console.log(theForm);
+        $.post('/saveEditNote/'+noteID, theForm)
+        .done(function(data){
+            setTimeout(updatePills, 1000);
+        }).fail(function () {
+            $('#theNoteError').show();
+            $('#theNoteError').html("<h3>Oops Something went wrong please try again</h3>")
+        });
+     });
+
+
+});
+
+
+
+    function clearNote() {
+        $('#noteID').html('');
+        $('#noteText').html('');
+        $('#theNoteError').hide();
+        $('#theNoteSuccess').hide();
+    }
+
+    function calNavLeft() {
+        if (currMonth ==1) {
+            currMonth=12;
+            currYear=currYear-1;
+        } else {
+            currMonth = currMonth-1;
+        }
+        $('.calendarRow').hide();
+        $('.monthCal'+currMonth+currYear).show();
+    }
+    function calNavRight() {
+        if (currMonth ==12) {
+            currMonth=1;
+            currYear=currYear+1;
+        } else {
+            currMonth = currMonth+1;
+        }
+        $('.calendarRow').hide();
+        $('.monthCal'+currMonth+currYear).show();
+    }
+    
+    </script>
+
+
+
+<div class="container-fluid">
+ 
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn() }}
+
+
+    <div class="row row-body">
+        <div class="row row-inner">
+            <div class="col-xs-4">
+            </div>
+            <div class="col-xs-7">
+                <style type="text/css">
+                td {
+                    
+                    font-size:20px;
+
+                }
+                th {
+                    color:#353a43;
+                    font-size:20px;
+
+                }
+                .black {
+                    color: #353a43;
+                }
+                .blue {
+                    color: #1db5cc;
+                }
+                .bottom {
+                    max-width: 600px!important;
+                    background-color:#f4f3f4;
+                }
+                </style>
+                <table style="width:100%;min-width:500px ; border-collapse: separate;color:#c8cacb;">
+                    <tr>
+                        <th  colspan="2"> {{patient.name}}</th> 
+                        <th>Next Appointment</th>
+                        <th>Episodes</th>
+                    </r>
+                    <tr>
+                        <td colspan="2">
+                            {{patient.email}}
+                        </td>
+                        <td>
+                            {{patient.nextAppointment}}
+                        </td>
+                        <td>
+                            {{patient.episodes}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-1">
+            </div>
+        </div>
+        <div class="row row-inner" style="position:relative;top:15px">
+            <div class="col-xs-1" >
+            </div>
+            <div class="col-xs-2" style="min-height:650px;" align="left">
+                <ul class="nav nav-pills nav-stacked" style="position:relative; top: 50px;display: inline-block;font-size:20px;" align="left">
+                    
+                
+                    <li class="active">
+                        <a data-toggle="pill" class="nav-pill-gray" href="#scheduleTab">{{patient.firstName}}'s Schedule</a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#dataTab">{{patient.firstName}}'s Data</a>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" class="nav-pill-gray" href="#myNotes">My Notes</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-8" style="min-height:650px; background:white;">
+                <div style="height:50px;">
+                </div>
+                <div class="tab-content content" style="background:white;" >
+                    <div id="scheduleTab" class="tab-pane fade in active">
+
+                            {% for monthCal in monthCalendars %}
+                                {{monthCal}}
+                            {% endfor %}
+                        
+                    </div>
+                    <div id="dataTab" class="tab-pane fade in">
+                        <ul class="nav nav-pills nav-justified sub-nav" align="left">
+                            <li class="active">
+                                <a data-toggle="pill" class="nav-pill-gray" href="#overviewGraph">Overview</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" class="nav-pill-gray" href="#ERPHW">ERP HW</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" class="nav-pill-gray" href="#episodes">Episodes</a>
+                            </li>
+                            <li >
+                                <a data-toggle="pill" class="nav-pill-gray" href="#specifics">Specifics </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" >
+                            <div id="overviewGraph" class="tab-pane fade in active">
+                                <div class="row dropped">
+                                    <div class="col-xs-6" align="center">
+                                        {{episodeCharts}}
+                                        <select class="form-control" id="episodeChartSelector" style="width:200px;">
+                                            <option value="episodeByObsessionChart" >Breakdown by Obsessions</option>
+                                            <option value="episodeByTriggerChart">Breakdown by Triggers</option>
+                                        </select>
+                                        <div class="episodeChart" id="episodeByObsessionChart" style="width:300; height:300"></div>
+                                        <div hidden class="episodeChart" id="episodeByTriggerChart" style="width:300; height:300"></div>
+                                    </div>
+                                    <div class="col-xs-6" align="center">
+                                        <select class="form-control" id="HWChartSelector" style="width:200px;">
+                                        <option value="HWByObsessionChart" >Breakdown by Obsessions</option>
+                                        <option value="HWByTriggerChart">Breakdown by Triggers</option>
+                                        </select>
+                                        <div class="HWChart" id="HWByObsessionChart" style="width:300; height:300"></div>
+                                        <div hidden class="HWChart" id="HWByTriggerChart" style="width:300; height:300"></div>  
+                                    </div>
+                                </div>  
+                                <div class="row dropped">
+                                    <div class="col-xs-6" align="center">
+                                        
+                                        <select class="form-control" id="episodeFrequencySelector" style="width:200px;">
+                                            <option value="episodeByMonthSection" >Frequency Over Months</option>
+                                            <option value="episodeByYearSection" >Frequency Over Years</option>
+                                            
+                                        </select>
+                                        <div class="episodeFrequencySection"   id="episodeByMonthSection">
+                                            {{episodeByMonthFrequencySelector}}
+                                            {{episodeMonthChartDivs}}
+                                        </div>
+                                        <div  class="episodeFrequencySection" hidden id="episodeByYearSection">
+                                            {{episodeYearChartDivs}}
+                                            <div id="EpisodesByYearGraph"></div>
+                                        </div>
+
+                                    </div>
+                                <div class="col-xs-6" align="center">
+                                        <select class="form-control" id="erpFrequencySelector" style="width:200px;">
+                                            <option value="erpByMonthSection" >Frequency Over Months</option>
+                                            <option value="erpByYearSection" >Frequency Over Years</option>
+                                            
+                                        </select>
+                                        <div class="erpFrequencySection" id="erpByMonthSection">
+
+                                            {{erpByMonthFrequencySelector}}
+                                            {{erpMonthChartDivs}}
+                                        </div>
+                                        <div hidden>
+                                         {{erpByWeekChartDivs}}
+                                        </div>
+                                        <div hidden id="erpByYearSection" class="erpFrequencySection">
+                                        <div  id="ERPByYearGraph" style="width:300; height:300"></div></div>
+                                        
+                                            
+                                    </div>
+                                </div>                      
+                            </div>
+                            <div id="ERPHW" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-xs-3" style="border-right:2px solid #c8cacb; min-height: 500px;">
+                                        <ul class="nav nav-pills nav-stacked sub-nav" style="max-height:200px;overflow-y: scroll; " align="left">
+                                            {{ERPHWPills}}
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="tab-content" >
+                                            {{ERPHWPanes}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="episodes" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-xs-3" style="border-right:2px solid #c8cacb; min-height: 500px;">
+                                        <ul class="nav nav-pills nav-stacked sub-nav" align="left" style="max-height:200px;overflow-y: scroll; ">
+                                            {{episodePills}}
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="tab-content" >
+                                            {{episodePanes}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="specifics" class="tab-pane fade in" style="position: relative; top:10px;">
+                                <div class="row">
+                                    <div class="col-xs-3" style="border-right:2px solid #c8cacb; min-height: 500px;">
+                                        <ul class="nav nav-pills nav-stacked sub-nav" align="left">
+                                            <li class="">
+                                                <a data-toggle="pill" class="nav-pill-gray" href="#heirarchies">Heirarchies</a>
+                                            </li>
+                                            <!--    
+                                            <li class="">
+                                                <a data-toggle="pill" class="nav-pill-gray" href="#goals">Goals</a>
+                                            </li>
+                                            <li class="">
+                                                <a data-toggle="pill" class="nav-pill-gray" href="#timing">Time Dedicated to nOCD</a>
+                                            </li>     -->
+                                                                 
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="tab-content" >
+                                            <div id="heirarchies" class="tab-pane fade in ">
+                                                <div class="row">
+                                                    <div class="col-xs-4">
+                                                        <h4 align="center">Obsessions</h4>
+                                                        <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
+                                                            {% for obsessionPill in obsessionPills %}
+                                                                {{obsessionPill}}
+                                                            {% endfor %}
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-xs-8">
+                                                        <div class="tab-content">
+                                                            {% for obsessionPane in obsessionPanes%}
+                                            
+                                                                {{obsessionPane}}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="goals" class="tab-pane fade in ">
+                                            </div>
+                                            <div id="timing" class="tab-pane fade in ">
+                                                <div id="timeOfDayChart"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="myNotes" class="tab-pane fade in">
+                        <ul class="nav nav-pills nav-justified" >
+                            <li class="active">
+                                <a data-toggle="pill" class="nav-pill-gray" href="#myNotesList">Notes</a>
+                            </li>
+                            <li>
+                                <a data-toggle="pill" class="nav-pill-gray" onclick="clearNote();" href="#addNote">New Note</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content " >
+                            <div id="myNotesList" class="tab-pane fade in active">
+                                <div id="notePanes"  class="row">
+                                    <div class="col-xs-4" style="overflow-y: scroll;min-height:500px;max-height: 500px;">          
+                                        <ul class="nav nav-pills nav-stacked sub-nav"  align="left">
+                                            {% for notePill in notePills %}
+                                                {{notePill}}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-8" >
+                                        <div class="tab-content">
+                                            {% for notePane in notePanes%}                        
+                                                {{notePane}}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="addNote" class="tab-pane fade in" align="center">
+ 
+                                {% from "forms.html" import EnterNoteForm%}
+                                {{EnterNoteForm(noteForm, noteFormError,hideDanger=hideDanger)}}
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1">
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

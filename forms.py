@@ -63,6 +63,7 @@ stateChoices = [
 ]
 
 countryChoices=[
+    ("United States","United States"),
     ("Afghanistan","Afghanistan"),
     ("Albania","Albania"),
     ("Algeria","Algeria"),
@@ -262,7 +263,7 @@ countryChoices=[
 ]
 
 
-treatmentMethodsList=[('video_chat/skype', 'Video Chat/Skype'), ('phone', 'Phone'), ('in_person','In Person'), ('intensive_outpatient_settings', 'Intensive Outpatient Settings')]
+treatmentMethodsList=[('video_chat/skype', 'Video Chat/Skype'), ('phone', 'Phone'), ('in_person','In Person'), ('intensive_outpatient_settings', 'Intensive Outpatient')]
 
 
 class LoginForm(Form):
@@ -285,14 +286,30 @@ class TherapistRegistrationForm(Form):
     country          = SelectField('Country', choices=countryChoices, validators=[DataRequired()])
 
 
+
+class ScheduleAppForm(Form) :
+    dated        =StringField('Date:', validators=[DataRequired()])
+    time        =StringField('Time:', validators=[DataRequired()], default="12:00 PM")
+    userID      =StringField('userID:', validators=[DataRequired()])
+
 class EnterNoteForm(Form) :
     noteID      =StringField('Note Title:', validators=[DataRequired()])
     note        =TextAreaField('Note', validators=[DataRequired()])
 
+class editNoteForm(Form) :
+    noteID      =StringField('Note Title:', validators=[DataRequired()])
+    note        =TextAreaField('Note', validators=[DataRequired()])
+    oldNoteID   =StringField('Note Title:', validators=[DataRequired()])
+
+class InvitePatientForm(Form) :
+    recipient   =StringField("Patient's Email:", validators=[DataRequired()])
+    invitation  =TextAreaField('Invitation', validators=[DataRequired()])
+
+
 class addERPHWForm (Form) :
     obsessions  =SelectField('OCD Theme', validators=[DataRequired()])
-    triggers    =SelectField('Trigger', validators=[DataRequired()])
-    places      =SelectField('Place', validators=[DataRequired()])
+    triggers    =StringField('Trigger', validators=[DataRequired()])
+    places      =StringField('Place', validators=[DataRequired()])
     time        =StringField('Time:', validators=[DataRequired()], default="12:00 PM")
     localtime   =StringField('localtime:', validators=[DataRequired()])
     prompt      =TextAreaField('Prompt')

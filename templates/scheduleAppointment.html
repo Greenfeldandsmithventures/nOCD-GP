@@ -1,0 +1,73 @@
+</<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+
+<script type="text/javascript" href="js/jq.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<title>
+		nOCD
+
+	</title>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		var date= new Date().getTime();
+		$('#date').val(date);
+	});
+
+</script>
+
+<!--Links for time Picker  -->
+<link rel="stylesheet" type="text/css" href="/resources/css/jquery.timeentry.css"> 
+<script type="text/javascript" src="/resources/js/jquery.plugin.min.js"></script> 
+<script type="text/javascript" src="/resources/js/jquery.timeentry.min.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var selected = $("#users").find(':selected').val();
+        $("#userID").val(selected);
+        console.log(selected);
+		$('body').on('change', '#users', function() {
+        var selected = $(this).find(':selected').val();
+        $("#userID").val(selected);
+        console.log(selected);
+      });
+
+
+	});
+</script>
+</head>
+
+
+<body >
+
+<div class="container-fluid" >
+  
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn(numRequests) }}
+
+
+
+    <div class="row row-body" style="top:150px">
+    	<div class="col-xs-4">
+    	</div>
+    	<div class="col-xs-4">
+			{%from "forms.html" import scheduleAppForm %}
+			{{scheduleAppForm(form,users, error)}}
+		</div>
+		<div class="col-xs-4">
+    	</div>
+	</div>
+</div>
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>nOCD</title>
+
+    <!--Linking Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            console.log("heree");
+            $.get('/myPatients/patient/{{patientCode}}')
+            .done(function(data){
+                //console.log(data);
+                document.open();
+                document.write(data);
+                document.close(); 
+                console.log("success");
+            }).fail(function () {
+            });
+        });
+    </script>
+    <title>nOCD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/patientPage.css">
+<!--Including Scripts for Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Including resources for fontawesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="/resources/js/bootstrap-wysiwyg.min.js"></script>
+
+<script type="text/javascript" src="/resources/js/jquery.hotkeys.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+
+<!--Links for time Picker  -->
+<link rel="stylesheet" type="text/css" href="/resources/css/jquery.timeentry.css"> 
+<script type="text/javascript" src="/resources/js/jquery.plugin.min.js"></script> 
+<script type="text/javascript" src="/resources/js/jquery.timeentry.min.js"></script>
+
+<!-- Linking Google charts -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
+
+</head>
+
+<body >
+
+<div class="container-fluid" id="theBods">
+
+{%from 'macros.html' import navbarLoggedIn%}
+{{ navbarLoggedIn(numRequests) }}
+
+    <!-- Display the patients lists -->
+    <div class="row row-full row-body" style="top:100px;">
+        <div class="row " >
+            <div class="col-xs-1">
+
+            </div>
+            <div class="col-xs-10" align="center">
+                <style type="text/css">
+                    td {
+                        padding-top: 15px;
+                        height:40px; 
+                        border-bottom: 1px solid black;  
+                        font-size:30px;
+
+                    }
+                    th {
+                        white-space: nowrap;
+                    }
+                    .black {
+                        z-index: -20;
+                        width: 100px;
+                        height: 100px;
+                        color: #353a43;
+                        background:#353a43;
+                        position: relative;
+                        -webkit-animation: loading 5s infinite; /* Chrome, Safari, Opera */
+                        animation: loading 5s infinite;
+                    }
+                    .blue {
+                        color: #1db5cc;
+                    }
+                    .circular {
+                         border: 1px solid #1db5cc; 
+                         border-radius: 10% 10% 10% 10%;
+                         background-color: white;
+                    }
+                    .selected {
+                        background-color: #e6e6e6;
+                    }
+                    .activo {
+                        color: #353a43;
+                    }
+
+                    .handy {
+                        cursor: pointer; 
+                        cursor: hand; 
+                    }
+
+                    /* Chrome, Safari, Opera */
+                    @-webkit-keyframes loading {
+                        from {left: 0%;}
+                        to {left: 100%;}
+                    }
+
+                    @keyframes loading {
+                        from {left: 0%;}
+                        to {left: 100%;}
+                    }
+                </style>
+     
+
+                <h1 class="blue" >Loading Patient Data</h1>
+            </div>
+            <div class="col-xs-1">
+
+            </div>
+        <div class="row">
+            <div class="black"></div>
+        </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

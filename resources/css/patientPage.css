@@ -1,0 +1,230 @@
+.HWDisplay {
+	border-style:double;
+	border-color:#1db5cc;
+	border-radius: 5px ;
+	max-width: 300px;
+	position: relative;
+	top: 20px;
+}
+
+.popoverCloser {
+	position: absolute;
+	right:0px;
+	bottom: 0px;
+}
+
+.popover {
+	color:#353a43;
+}
+.blueBadge {
+	color:#1db5cc;
+}
+
+
+
+.chevy {
+	cursor: pointer; 
+    cursor: hand; 
+}
+
+.topped-right {
+	position: relative;
+	top: 10px;
+	border-top: 2px solid #c8cacb;
+	border-right: 2px solid #c8cacb;  
+}
+.topped-left {
+	position: relative;
+	top: 10px;
+	border-top: 2px solid #c8cacb;
+	border-left: 2px solid #c8cacb;  
+}
+.topped {
+	position: relative;
+	top: 10px;
+	border-top: 2px solid #c8cacb;
+ 
+}
+.lefted {
+	border-left: 2px solid #c8cacb;
+}
+.righted {
+	border-right: 2px solid #c8cacb;
+}
+
+.bottomedd {
+	position: relative;
+	top: 10px;
+	border-bottom: 2px solid #c8cacb;
+ 
+}
+.smaller {
+	font-size: 17px !important;
+}
+
+.sub-nav {
+	position:relative; 
+	top: 10px;
+	left: 10px;
+	display: inline-block;
+	font-size:15px;
+}
+.sub-sub-nav {
+	position:relative; 
+	top: 10px;
+	left: 10px;
+	display: inline-block;
+	font-size:12px;
+}
+
+
+.noteEditor {
+	overflow: scroll;
+  	width: 450px;
+  	height: 450px;
+  	background-color: #fff;
+  	border-radius: 10px 10px 10px 10px; 
+}
+
+.note-pane {
+	border: 1px solid #c8cacb;
+	background-color:#f4f3f4; 
+	width: 500px;
+	border-radius: 20px 20px 20px 20px;
+}
+input:focus, input:active, div:focus, div.active, div:focus:active{
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.content {
+	min-width: 100%;
+	min-height: 600px;
+	border-radius: 10px 0 0 0;
+	border-top: 2px solid #c8cacb; 
+	border-left: 2px solid #c8cacb;
+
+}
+
+.sub-content {
+	position:relative; 
+	top: 60px;
+	min-height: 400px !important;
+	border-radius: 10px 0 0 0;
+	border-top: 2px solid #c8cacb; 
+	border-left: 2px solid #c8cacb;
+
+}
+
+.dropped {
+	position:relative; 
+	top: 10px;
+	left: 10px;
+
+}
+
+
+.day {
+	height:100px;
+    min-width:100px;
+    max-width: 100px;
+	position:relative;
+	border-color:#888e97!important ;
+}
+
+.currMonthDay {
+	color:#353a43;
+}
+.notCurrMonthDay {
+	color: #c8cacb;
+
+}
+.addERPButton, .addERPButton:focus, .addERPButton.active,.addERPButton:focus:active{
+	position: absolute ;
+	top:0px;
+	left:0px;
+	background: none!important;
+	border: none!important;
+}
+.addERPButton:focus, .addERPButton.active,.addERPButton:focus:active{
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ERPHWButton, .ERPHWButton:focus, .ERPHWButton.active,.ERPHWButton:focus:active{
+
+	background: none!important;
+	border: none!important;
+}
+.ERPHWButton:focus, .ERPHWButton.active,.ERPHWButton:focus:active{
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.ERPHWLi {
+	background: none!important;
+	border: none!important;
+	  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ERPHWSmall {
+	background: none!important;
+	border: none!important;
+	  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-size: 15px;
+}
+.dayContainer {
+	height:100%;
+}
+
+.dayCol {
+	min-height: 33px !important;
+}
+.hwRow {
+	position: absolute ;
+	bottom:0px;
+	min-width: 100%;
+}
+
+.hwDropdown {
+	position: relative ;
+	top:30px;
+}
+
+
+.glyph-blue{
+	color:#1db5cc;
+}
+.dayDate {
+	position: absolute;
+	top: 0px;
+	right:0px;
+
+}
+
+.complete {
+	color:#03bba6;
+}
+.incomplete {
+	color:#f27642;
+}
+.missed {
+	color:#f24236;
+}
+table {
+	position:relative;
+	top: 20px;
+	left: 20px;
+}
+
+
+

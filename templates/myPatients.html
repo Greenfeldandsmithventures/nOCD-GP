@@ -4,20 +4,22 @@
     <title>nOCD</title>
 
     <!--Linking Style Sheets -->
-    <link rel="stylesheet" type="text/css" href="/stylesheets/home.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
+        console.log("pop"+{{numRequests}});
         //Handle Sorting
         $(function() {
             $('.sorter').on('click', function($this) {
                 console.log(this.value);
                 if ($(this).hasClass("nameAscend")) {
                     //highlight correct sort buttons
+                    $('.sorter').removeClass('selected');
                     $('.nameAscend').addClass('selected');
                     $('.episodeAscend').removeClass('selected');
                     $('.appointmentAscend').removeClass('selected');
@@ -26,13 +28,32 @@
                     $('.episodeColumn').removeClass('activo');
                     $('.appointmentColumn').removeClass('activo');
                     //Reveal Correct table
+                    $(".table-hover").hide();
                     $("#appointmentTable").hide();
                     $('#episodeTable').hide();
                     $('#nameTable').show();                    
                     console.log('naming');
                 }
+                else if ($(this).hasClass("nameDescend")) {
+                    //highlight correct sort buttons
+                    $('.sorter').removeClass('selected');
+                    $('.nameDescend').addClass('selected');
+                    $('.episodeAscend').removeClass('selected');
+                    $('.appointmentAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.nameColumn').addClass('activo');
+                    $('.episodeColumn').removeClass('activo');
+                    $('.appointmentColumn').removeClass('activo');
+                    //Reveal Correct table
+                    $(".table-hover").hide();
+                    $("#appointmentTable").hide();
+                    $('#episodeTable').hide();
+                    $('#nameTableDe').show();                    
+                    console.log('naming');
+                }
                 else if ($(this).hasClass("appointmentAscend")) {
                     //highlight buttons
+                    $('.sorter').removeClass('selected');
                     $('.appointmentAscend').addClass('selected');
                     $('.episodeAscend').removeClass('selected');
                     $('.nameAscend').removeClass('selected');
@@ -41,13 +62,32 @@
                     $('.episodeColumn').removeClass('activo');
                     $('.nameColumn').removeClass('activo');
                     //reveal correct table 
-                    $("#nameTable").hide();
-                    $('#episodeTable').hide();
+                    $(".table-hover").hide();
+
                     $('#appointmentTable').show();                 
                     console.log('apps');
                 }
-                else {
+                else if ($(this).hasClass("appointmentDescend")) {
                     //highlight buttons
+                    $('.sorter').removeClass('selected');
+                    $('.appointmentDescend').addClass('selected');
+                    //$('.episodeAscend').removeClass('selected');
+                    //$('.nameAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.appointmentColumn').addClass('activo');
+                    $('.episodeColumn').removeClass('activo');
+                    $('.nameColumn').removeClass('activo');
+                    //reveal correct table 
+                    $("#nameTable").hide();
+                    $(".table-hover").hide();
+                    $('#episodeTable').hide();
+                    $('#appointmentTableDe').show();                 
+                    console.log('apps');
+                }
+
+                else if ($(this).hasClass("episodeAscend")){
+                    //highlight buttons
+                    $('.sorter').removeClass('selected');
                     $('.episodeAscend').addClass('selected');
                     $('.nameAscend').removeClass('selected');
                     $('.appointmentAscend').removeClass('selected');
@@ -57,8 +97,26 @@
                     $('.appointmentColumn').removeClass('activo');
                     //Reveal correct Table
                     $("#appointmentTable").hide();
+                    $(".table-hover").hide();
                     $('#nameTable').hide();
                     $('#episodeTable').show();
+                    console.log('eps');
+                }
+                else {
+                    //highlight buttons
+                    $('.sorter').removeClass('selected');
+                    $('.episodeDescend').addClass('selected');
+                    $('.nameAscend').removeClass('selected');
+                    $('.appointmentAscend').removeClass('selected');
+                    //outline selected columns
+                    $('.episodeColumn').addClass('activo');
+                    $('.nameColumn').removeClass('activo');
+                    $('.appointmentColumn').removeClass('activo');
+                    //Reveal correct Table
+                    $("#appointmentTable").hide();
+                    $(".table-hover").hide();
+                    $('#nameTable').hide();
+                    $('#episodeTableDe').show();
                     console.log('eps');
                 }
             })
@@ -68,25 +126,28 @@
     </script>
 </head>
 
-<body>
+<body >
 
 <div class="container-fluid">
 
 {%from 'macros.html' import navbarLoggedIn%}
-{{ navbarLoggedIn() }}
+{{ navbarLoggedIn(numRequests) }}
 
     <!-- Display the patients lists -->
     <div class="row row-full row-body" style="top:100px;">
       <div class="row " >
-        <div class="col-xs-2">
+        <div class="col-xs-1">
 
         </div>
-        <div class="col-xs-8" align="center">
+        <div class="col-xs-10" align="center">
             <style type="text/css">
                 td {
                     padding-top: 15px;
                     height:40px; border-bottom: 1px solid black;  font-size:30px;
 
+                }
+                th {
+                    white-space: nowrap;
                 }
                 .black {
                     color: #353a43;
@@ -106,14 +167,28 @@
                     color: #353a43;
                 }
 
+                .handy {
+                    cursor: pointer; 
+                    cursor: hand; 
+                }
+
             </style>
 
                 <!-- Sorted by Appointments Table -->
                 <table hidden class="table-hover" id="appointmentTable" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
                     <thead style="color:#353a43; font-size:30px">
-                        <th>Name <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
                     </thead>
 
                     {%for patientRow in patientRowsAppointments%}
@@ -122,12 +197,45 @@
 
                 </table>
 
+
+                <!-- Sorted by Appointments Descend Table -->
+                <table hidden class="table-hover" id="appointmentTableDe" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                    </thead>
+
+                    {%for patientRow in patientRowsAppointmentsDe%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+
                 <!-- Sorted by Names A-z-->
                 <table class="table-hover " id="nameTable" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
                     <thead style="color:#353a43; font-size:30px">
-                        <th>Name <button class="selected btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
                     </thead>
 
                     {%for patientRow in patientRowsName%}
@@ -136,12 +244,45 @@
 
                 </table>
 
+                <!-- Sorted by Names Z-A-->
+                <table hidden class="table-hover " id="nameTableDe" style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                    </thead>
+
+                    {%for patientRow in patientRowsNameDe%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+
+
                 <!-- Sorted by Episodes asecnding -->
                 <table hidden class="table-hover " id="episodeTable"  style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
                     <thead style="color:#353a43; font-size:30px">
-                        <th>Name <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Next Appointment <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
-                        <th>Episodes <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button></th>
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
                     </thead>
 
                     {%for patientRow in patientRowsEpisodes%}
@@ -149,12 +290,36 @@
                     {%endfor%}
 
                 </table>
+
+                <!-- Sorted by Episodes Descending -->
+                <table hidden class="table-hover " id="episodeTableDe"  style="padding: 50px;width:1000px; background-color:white; border-collapse: separate;color:#c8cacb;">
+                    <thead style="color:#353a43; font-size:30px">
+                        <th>Name 
+                            <button class="btn btn-default sorter nameAscend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter nameDescend " href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Next Appointment 
+                            <button class="btn btn-default sorter appointmentAscend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter appointmentDescend" href="#"><span style="font-size:20px; color:#888e97"class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                        <th>Episodes 
+                            <button class="btn btn-default sorter episodeAscend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes"></span></button>
+                            <button class="btn btn-default sorter episodeDescend" href="#"><span style="font-size:20px; color:#888e97" class="glyphicon glyphicon-sort-by-attributes-alt"></span></button>
+                        </th>
+                    </thead>
+
+                    {%for patientRow in patientRowsEpisodesDe%}
+                        {{patientRow}}
+                    {%endfor%}
+
+                </table>
+
+
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-1">
 
         </div>
       </div>
-
     </div>
 
 </div>

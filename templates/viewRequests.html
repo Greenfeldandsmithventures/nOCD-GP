@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>nOCD</title>
+
+	<!--Linking Style Sheets -->
+		<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+		<link rel="stylesheet" type="text/css" href="/resources/css/patientPage.css">
+	<!--Including Scripts for Bootstrap -->
+   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- Including resources for fontawesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script type="text/javascript">
+            console.log("pop"+{{numRequests}});
+        </script>
+</head>
+<body >
+
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn(numRequests) }}
+
+
+    <div class="row row-body">
+    	<div class="row row-inner">
+    		<div class="col-xs-3">
+            </div>
+    		<div class="col-xs-8" style="background:white;">
+    			{%if not requestsPresent%}
+    				<h2> You have no Patient Requests at this time. </h2>
+    			{% endif %}
+
+    		</div>
+    		<div class="col-xs-1">
+            </div>
+    	</div>
+        <div class="row row-inner">
+    		<div class="col-xs-3">
+            </div>
+            <div class="col-xs-6" align="left" style="background:white;">
+                <table class="table">{{theTable}}</table>
+            </div>
+            <div class="col-xs-3" style="background:white;">
+            </div>
+
+    	</div>
+    </div>
+  
+
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>nOCD</title>
+
+    <!--Linking Style Sheets -->
+    <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body>
+<div class="container-fluid" id="theBods">
+
+{%from 'macros.html' import navbarLoggedIn%}
+{{ navbarLoggedIn(numRequests) }}
+
+    <!-- Display the patients lists -->
+    <div class="row row-full row-body" style="top:100px;">
+        <div class="row " >
+            <div class="col-xs-1">
+
+            </div>
+            <div class="col-xs-10" align="center">
+                <style type="text/css">
+                    td {
+                        padding-top: 15px;
+                        height:40px; 
+                        border-bottom: 1px solid black;  
+                        font-size:30px;
+
+                    }
+                    th {
+                        white-space: nowrap;
+                    }
+                    .black {
+                        z-index: -20;
+                        width: 100px;
+                        height: 100px;
+                        color: #353a43;
+                        background:#353a43;
+                        position: relative;
+                        -webkit-animation: loading 5s infinite; /* Chrome, Safari, Opera */
+                        animation: loading 5s infinite;
+                    }
+                    .blue {
+                        color: #1db5cc;
+                    }
+                    .circular {
+                         border: 1px solid #1db5cc; 
+                         border-radius: 10% 10% 10% 10%;
+                         background-color: white;
+                    }
+                    .selected {
+                        background-color: #e6e6e6;
+                    }
+                    .activo {
+                        color: #353a43;
+                    }
+
+                    .handy {
+                        cursor: pointer; 
+                        cursor: hand; 
+                    }
+
+                </style>
+     
+
+                <h1 class="blue" >In order to ensure the best treatment for our users this functionality has been disabled until your account is verified. You will recieve an email confirmation when your account has been verified. </h1>
+            </div>
+            <div class="col-xs-1">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
+

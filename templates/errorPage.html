@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>nOCD</title>
+	<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/patientPage.css">
+<!--Including Scripts for Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- Including resources for fontawesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div class="row">
+  <div class="col-xs-12">
+  	    {%from 'macros.html' import navbar%}
+    	{{ navbar() }}
+  </div>
+</div>
+<div class="row row-body">
+  <div class="col-xs-12">
+  	    <h1>Unfortunately there has been an error with our servers please log in again or refresh</h1>
+  </div>
+</div>
+<div class="row row-body">
+  <div class="col-xs-12"> 
+  		<style type="text/css">
+  			.blueError {
+  				font-size: 90 px;
+  				color: #1db5cc;
+  			}
+  		</style>
+  		<span class="blueError glyphicon glyphicon-wrench"></span>
+  </div>
+</div>
+
+
+</body>
+</html>

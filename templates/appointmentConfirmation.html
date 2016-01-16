@@ -1,0 +1,36 @@
+<!DOCTYPE <html>
+<head>
+    <title>nOCD</title>
+
+<!--Linking Style Sheets -->
+<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+
+<!--Including Scripts for Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    
+</head>
+
+<body>
+
+<div class="container-fluid">
+    
+ 
+    {%from 'macros.html' import navbarLoggedIn%}
+    {{ navbarLoggedIn(numRequests) }}
+
+
+    <div class="row row-body">
+        <div class="row row-inner">
+            <div class="col col-xs-12">
+                <center>
+                    <h2>An appointment has been scheduled with {{patientName}} for {{theDate}}</h2>
+                </center>
+            </div>
+        </div>
+</div>
+</div>
+</body>
+</html>

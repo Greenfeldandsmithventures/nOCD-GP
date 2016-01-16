@@ -1,16 +1,17 @@
 application: nocdportal
-version: 3
+version: 7
 runtime: python27
 api_version: 1
 threadsafe: yes
 module: default
 handlers:
 
-- url: /stylesheets
-  static_dir: stylesheets
+- url: /resources
+  static_dir: resources
 
 - url: .*
   script: main.app
+  secure: always
 
 libraries:
 - name: jinja2
